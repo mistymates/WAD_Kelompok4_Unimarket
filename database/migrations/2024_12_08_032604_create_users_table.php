@@ -4,22 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateCartsTable extends Migration
 {
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->enum('role', ['buyer', 'seller', 'admin'])->default('buyer');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Buyer
+            $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Product in the cart
+            $table->integer('quantity')->default(1);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('carts');
     }
 }
