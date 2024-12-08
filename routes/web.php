@@ -12,8 +12,7 @@ use App\Http\Controllers\Buyer\ReviewController;
 use App\Http\Controllers\Buyer\ChatController;
 use App\Http\Controllers\Buyer\SupportController;
 use App\Http\Controllers\Seller\ChatController as SellerChatController;
-use App\Http\Controllers\Seller\SupportController as SellerSupportController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Buyer\OrderController;
 
 Route::get('/', [CatalogController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
@@ -47,7 +46,6 @@ Route::middleware(['auth', 'role:seller'])->group(function () {
     Route::delete('/seller/products/{productId}', [ProductController::class, 'destroy'])->name('seller.products.delete');
     Route::get('/seller/transactions', [TransactionController::class, 'index'])->name('seller.transactions');
     Route::get('/seller/chat', [SellerChatController::class, 'index'])->name('seller.chat');
-    Route::get('/seller/support', [SellerSupportController::class, 'index'])->name('seller.support');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
